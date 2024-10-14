@@ -25,18 +25,25 @@ size_t command_words_num(char* buffer, size_t size)
 
 Asm_Commands translation_func(const char* command_word, size_t wrd_size)
 {
-         if(strncmp(command_word, c_push, wrd_size) == 0) {return MY_PUSH;}
-    else if(strncmp(command_word, c_add,  wrd_size) == 0) {return MY_ADD;}
-    else if(strncmp(command_word, c_sub,  wrd_size) == 0) {return MY_SUB;}
-    else if(strncmp(command_word, c_mul,  wrd_size) == 0) {return MY_MUL;}
-    else if(strncmp(command_word, c_div,  wrd_size) == 0) {return MY_DIV;}
-    else if(strncmp(command_word, c_in,   wrd_size) == 0) {return MY_IN;}
-    else if(strncmp(command_word, c_out,  wrd_size) == 0) {return MY_OUT;}
-    else if(strncmp(command_word, c_sqrt, wrd_size) == 0) {return MY_SQRT;}
-    else if(strncmp(command_word, c_sin,  wrd_size) == 0) {return MY_SIN;}
-    else if(strncmp(command_word, c_cos,  wrd_size) == 0) {return MY_COS;}
-    else if(strncmp(command_word, c_dump, wrd_size) == 0) {return MY_DUMP;}
-    else if(strncmp(command_word, c_hlt,  wrd_size) == 0) {return MY_HLT;}
+         if(strncmp(command_word, c_push, wrd_size) == 0) return MY_PUSH;
+    else if(strncmp(command_word, c_add,  wrd_size) == 0) return MY_ADD;
+    else if(strncmp(command_word, c_sub,  wrd_size) == 0) return MY_SUB;
+    else if(strncmp(command_word, c_mul,  wrd_size) == 0) return MY_MUL;
+    else if(strncmp(command_word, c_div,  wrd_size) == 0) return MY_DIV;
+    else if(strncmp(command_word, c_in,   wrd_size) == 0) return MY_IN;
+    else if(strncmp(command_word, c_out,  wrd_size) == 0) return MY_OUT;
+    else if(strncmp(command_word, c_sqrt, wrd_size) == 0) return MY_SQRT;
+    else if(strncmp(command_word, c_sin,  wrd_size) == 0) return MY_SIN;
+    else if(strncmp(command_word, c_cos,  wrd_size) == 0) return MY_COS;
+    else if(strncmp(command_word, c_dump, wrd_size) == 0) return MY_DUMP;
+    else if(strncmp(command_word, c_hlt,  wrd_size) == 0) return MY_HLT;
+    else if(strncmp(command_word, c_jmp,  wrd_size) == 0) return MY_JMP;
+    else if(strncmp(command_word, c_ja,  wrd_size) == 0) return MY_JA;
+    else if(strncmp(command_word, c_jae,  wrd_size) == 0) return MY_JAE;
+    else if(strncmp(command_word, c_jb,  wrd_size) == 0) return MY_JB;
+    else if(strncmp(command_word, c_jbe,  wrd_size) == 0) return MY_JBE;
+    else if(strncmp(command_word, c_je,  wrd_size) == 0) return MY_JE;
+    else if(strncmp(command_word, c_jne,  wrd_size) == 0) return MY_JNE;
     else return MATVEY;
 }
 

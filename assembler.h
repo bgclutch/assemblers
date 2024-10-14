@@ -14,6 +14,13 @@ static const char* c_sin  = "sin";
 static const char* c_cos  = "cos";
 static const char* c_dump = "dump";
 static const char* c_hlt  = "hlt";
+static const char* c_jmp  = "jmp";
+static const char* c_ja   = "ja";
+static const char* c_jae  = "jae";
+static const char* c_jb   = "jb";
+static const char* c_jbe  = "jbe";
+static const char* c_je   = "je";
+static const char* c_jne  = "jne";
 
 enum Asm_Commands
 {
@@ -28,6 +35,13 @@ enum Asm_Commands
     MY_SIN  = 0x09,
     MY_COS  = 0x0A,
     MY_DUMP = 0x0B,
+    MY_JMP  = 0x10,
+    MY_JA   = 0x11,
+    MY_JAE  = 0x12,
+    MY_JB   = 0x13,
+    MY_JBE  = 0x14,
+    MY_JE   = 0x15,
+    MY_JNE  = 0x16,
     MATVEY  = 0xFF,
     MY_HLT  = 0x00,
 

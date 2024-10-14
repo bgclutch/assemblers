@@ -7,8 +7,9 @@ out
 add
 mul
 out
-
-
+jmp
+ja
+jae
 sub
 
 
