@@ -37,19 +37,16 @@ Asm_Commands translation_func(const char* command_word, size_t wrd_size)
     else if(strncmp(command_word, c_cos,  wrd_size) == 0) return MY_COS;
     else if(strncmp(command_word, c_dump, wrd_size) == 0) return MY_DUMP;
     else if(strncmp(command_word, c_hlt,  wrd_size) == 0) return MY_HLT;
+    else if(strncmp(command_word, c_pshr, wrd_size) == 0) return MY_PSHR;
+    else if(strncmp(command_word, c_pop,  wrd_size) == 0) return MY_POP;
     else if(strncmp(command_word, c_jmp,  wrd_size) == 0) return MY_JMP;
-    else if(strncmp(command_word, c_ja,  wrd_size) == 0) return MY_JA;
+    else if(strncmp(command_word, c_ja,   wrd_size) == 0) return MY_JA;
     else if(strncmp(command_word, c_jae,  wrd_size) == 0) return MY_JAE;
-    else if(strncmp(command_word, c_jb,  wrd_size) == 0) return MY_JB;
+    else if(strncmp(command_word, c_jb,   wrd_size) == 0) return MY_JB;
     else if(strncmp(command_word, c_jbe,  wrd_size) == 0) return MY_JBE;
-    else if(strncmp(command_word, c_je,  wrd_size) == 0) return MY_JE;
+    else if(strncmp(command_word, c_je,   wrd_size) == 0) return MY_JE;
     else if(strncmp(command_word, c_jne,  wrd_size) == 0) return MY_JNE;
     else return MATVEY;
-}
-
-int res_checker(const ssize_t num)
-{
-    return (!num) ? 0 : 1;
 }
 
 
@@ -69,7 +66,7 @@ int translator(char* buffer, size_t words_num, FILE* file, size_t size)
 
         fprintf(file, "%d ", command_num);
 
-        if(command_num == MY_PUSH)
+        if(command_num == MY_PUSH || command_num == MY_POP || command_num == MY_PSHR)
         {
             ssize_t number = put_command_num(buffer, size, &index);
             fprintf(file, "%ld ", number);
@@ -126,12 +123,12 @@ ssize_t put_command_num(char* buffer, size_t size, size_t* index)
 
     ssize_t number = 0;
 
-    for(size_t i = 0; i < wrd_len; i++)
+    for(size_t i = 0; i < wrd_len - 1; i++) // -1???
     {
         number += strtol(compare + i, NULL, 10);
         number *= 10;
     }
-    number /= 100;
+    number /= 10; // 100???
 
     return number;
 }

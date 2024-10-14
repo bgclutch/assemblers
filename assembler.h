@@ -14,6 +14,8 @@ static const char* c_sin  = "sin";
 static const char* c_cos  = "cos";
 static const char* c_dump = "dump";
 static const char* c_hlt  = "hlt";
+static const char* c_pshr = "pushr";
+static const char* c_pop  = "pop";
 static const char* c_jmp  = "jmp";
 static const char* c_ja   = "ja";
 static const char* c_jae  = "jae";
@@ -42,6 +44,8 @@ enum Asm_Commands
     MY_JBE  = 0x14,
     MY_JE   = 0x15,
     MY_JNE  = 0x16,
+    MY_PSHR = 0x20,
+    MY_POP  = 0x21,
     MATVEY  = 0xFF,
     MY_HLT  = 0x00,
 
@@ -50,8 +54,6 @@ enum Asm_Commands
 size_t command_words_num(char* buffer, size_t size);
 
 Asm_Commands translation_func(const char*, size_t);
-
-int res_checker(const ssize_t num);
 
 int translator(char* buffer, size_t words_num, FILE* file, size_t size);
 

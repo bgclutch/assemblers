@@ -12,7 +12,6 @@
 
 int main(void)
 {
-    //assert(0);
     FILE* file_read = nullptr;
     file_read = file_read_open(file_read, "default_assembler_code.asm");
 
@@ -28,7 +27,7 @@ int main(void)
         return 0;
 
 
-    char* buffer = buffer_create(file_size, file_read);
+    char* buffer = buffer_create(file_size, sizeof(char), file_read);
 
     assert(buffer);
 
