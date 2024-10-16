@@ -46,6 +46,10 @@ Asm_Commands translation_func(const char* command_word, size_t wrd_size)
     else if(strncmp(command_word, c_jbe,  wrd_size) == 0) return MY_JBE;
     else if(strncmp(command_word, c_je,   wrd_size) == 0) return MY_JE;
     else if(strncmp(command_word, c_jne,  wrd_size) == 0) return MY_JNE;
+    else if(strncmp(command_word, c_ax,  wrd_size) == 0) return MY_AX;
+    else if(strncmp(command_word, c_bx,  wrd_size) == 0) return MY_BX;
+    else if(strncmp(command_word, c_cx,  wrd_size) == 0) return MY_CX;
+    else if(strncmp(command_word, c_dx,  wrd_size) == 0) return MY_DX;
     else return MATVEY;
 }
 
@@ -58,16 +62,35 @@ int translator(char* buffer, size_t words_num, FILE* file, size_t size)
     {
         Asm_Commands command_num = put_command_word(buffer, size, &index);
 
-        if(command_num == MATVEY)
-        {
-            fprintf(stderr, "SNTXERR\n");
+        if(!synt_err_check(command_num, __FILE__, __LINE__))
             return 0;
-        }
 
         fprintf(file, "%d ", command_num);
 
-        if(command_num == MY_PUSH || command_num == MY_POP || command_num == MY_PSHR)
+        if(command_num == MY_PUSH)
         {
+            if(!synt_err_check(command_num, __FILE__, __LINE__))
+                return 0;
+
+            ssize_t number = put_command_num(buffer, size, &index);
+            fprintf(file, "%ld ", number);
+            i++;
+        }
+        else if(command_num == MY_POP || command_num == MY_PSHR)
+        {
+            if(!synt_err_check(command_num, __FILE__, __LINE__))
+                return 0;
+
+            ssize_t com_register = put_command_word(buffer, size, &index);
+            fprintf(file, "%ld ", com_register);
+            i++;
+        }
+        else if(command_num == MY_JMP || command_num == MY_JA || command_num == MY_JAE || command_num == MY_JB ||
+                command_num == MY_JBE || command_num == MY_JE || command_num == MY_JNE)
+        {
+            if(!synt_err_check(command_num, __FILE__, __LINE__))
+                return 0;
+
             ssize_t number = put_command_num(buffer, size, &index);
             fprintf(file, "%ld ", number);
             i++;
@@ -123,12 +146,19 @@ ssize_t put_command_num(char* buffer, size_t size, size_t* index)
 
     ssize_t number = 0;
 
-    for(size_t i = 0; i < wrd_len - 1; i++) // -1???
-    {
-        number += strtol(compare + i, NULL, 10);
-        number *= 10;
-    }
-    number /= 10; // 100???
+    number = strtol(compare, NULL, 10);
 
     return number;
+}
+
+
+
+int synt_err_check(const Asm_Commands command_num, const char* file, size_t line)
+{
+    if(command_num == MATVEY)
+        {
+            fprintf(stderr, "%s:%lu SNTXERR\n", file, line);
+            return 0;
+        }
+    return 1;
 }

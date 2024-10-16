@@ -4,10 +4,7 @@ cos
 sin
 in
 out
-
-mul
-out
-jmp
-ja
-jae
-sub
+jmp 4
+je 1
+pop BX
+hlt
