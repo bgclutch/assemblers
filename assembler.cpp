@@ -285,11 +285,10 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                         {
                             labels_array[pos].ip = (int64_t)instr_pointer; // else address is -1 (it will be checked in second run)
                             token_st->token_array[ind].label_address = (int64_t)instr_pointer;
-                            instr_pointer += token_st->token_array[ind].token_size;
                         }
                         else
                         {
-                            instr_pointer += sizeof(char);
+                            instr_pointer += token_st->token_array[ind].token_size;
                             label_to_null(labels_array, pos);
                         }
                         flag = 0;

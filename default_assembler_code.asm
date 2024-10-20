@@ -1,15 +1,15 @@
 push 1
 add
 mul
-NEXT:
+START:
 cos
 in
+jne START
 sin
-jne NEXT
 dump
-ja START
+ja NEXT
 out
-START:
+NEXT:
 push 14
 dump
 dump
