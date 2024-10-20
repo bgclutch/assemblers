@@ -270,6 +270,7 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
     if(translator_flag == FIRST_RUN)
     {
         int flag = 1;
+
         for(size_t ind = 0; ind < token_st->size; ind++) // iteration by tokens array
         {
             if(token_st->token_array[ind].type == LABEL) // if token type == label
@@ -284,6 +285,7 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                         {
                             labels_array[pos].ip = (int64_t)instr_pointer; // else address is -1 (it will be checked in second run)
                             token_st->token_array[ind].label_address = (int64_t)instr_pointer;
+                            instr_pointer += token_st->token_array[ind].token_size;
                         }
                         flag = 0;
                     }
@@ -291,14 +293,18 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                     {
                         if(strncmp(labels_array[pos].name, token_st->token_array[ind].name, token_st->token_array[ind].name_size - 2) == 0)
                         {
-                            labels_array[pos].ip = (int64_t)++instr_pointer;
-                            token_st->token_array[ind].label_address = (int64_t)++instr_pointer;
+                            instr_pointer += token_st->token_array[ind].token_size;
+                            labels_array[pos].ip = (int64_t)instr_pointer;
+                            token_st->token_array[ind].label_address = (int64_t)instr_pointer;
                         }
                     }
                 }
             }
-
-            instr_pointer += token_st->token_array[ind].token_size;
+            else
+            {
+                instr_pointer += token_st->token_array[ind].token_size;
+                flag = 1;
+            }
         }
     }
     else if(translator_flag == SECOND_RUN)
@@ -330,6 +336,11 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                     {
                         if(token_st->token_array[ind].name[token_st->token_array[ind].name_size - 1] != lblatr)
                         {
+                            if(strncmp(token_st->token_array[ind].name, labels_array[i].name, token_st->token_array->name_size) != 0)
+                            {
+                                continue;
+                            }
+
                             label_dump(labels_array, labels_arr_len, stderr);
 
                             if(labels_array[i].ip == label_ip_null)

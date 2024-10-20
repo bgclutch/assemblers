@@ -5,9 +5,11 @@ NEXT:
 cos
 in
 sin
-je NEXT
+jne NEXT
 dump
+ja START
 out
+START:
 push 14
 dump
 dump

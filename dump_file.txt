@@ -1,7 +1,7 @@
 array struct elem 0: NEXT: jump address:11
-array struct elem 1: aboba jump address:-1
-array struct elem 2: aboba jump address:-1
-array struct elem 3: aboba jump address:-1
+array struct elem 1: NEXT jump address:-1
+array struct elem 2: START jump address:22
+array struct elem 3: START: jump address:22
 array struct elem 4: aboba jump address:-1
 array struct elem 5: aboba jump address:-1
 array struct elem 6: aboba jump address:-1
@@ -90,11 +90,11 @@ label address -1
 number -1
 
 
-je
-name size 2
+jne
+name size 3
 token_size 1
 type 1
-opcode 21
+opcode 22
 register 223
 label address -1
 number -1
@@ -120,6 +120,26 @@ label address -1
 number -1
 
 
+ja
+name size 2
+token_size 1
+type 1
+opcode 17
+register 223
+label address -1
+number -1
+
+
+START
+name size 5
+token_size 2
+type 3
+opcode 111
+register 223
+label address -1
+number -1
+
+
 out
 name size 3
 token_size 1
@@ -127,6 +147,16 @@ type 1
 opcode 7
 register 223
 label address -1
+number -1
+
+
+START:
+name size 6
+token_size 2
+type 3
+opcode 111
+register 223
+label address 22
 number -1
 
 
@@ -181,9 +211,9 @@ number -1
 
 
 array struct elem 0: NEXT: jump address:11
-array struct elem 1: aboba jump address:-1
-array struct elem 2: aboba jump address:-1
-array struct elem 3: aboba jump address:-1
+array struct elem 1: NEXT jump address:-1
+array struct elem 2: START jump address:22
+array struct elem 3: START: jump address:22
 array struct elem 4: aboba jump address:-1
 array struct elem 5: aboba jump address:-1
 array struct elem 6: aboba jump address:-1
@@ -272,11 +302,11 @@ label address -1
 number -1
 
 
-je
-name size 2
+jne
+name size 3
 token_size 1
 type 1
-opcode 21
+opcode 22
 register 223
 label address -1
 number -1
@@ -302,6 +332,26 @@ label address -1
 number -1
 
 
+ja
+name size 2
+token_size 1
+type 1
+opcode 17
+register 223
+label address -1
+number -1
+
+
+START
+name size 5
+token_size 2
+type 3
+opcode 111
+register 223
+label address -1
+number -1
+
+
 out
 name size 3
 token_size 1
@@ -309,6 +359,16 @@ type 1
 opcode 7
 register 223
 label address -1
+number -1
+
+
+START:
+name size 6
+token_size 2
+type 3
+opcode 111
+register 223
+label address 22
 number -1
 
 
