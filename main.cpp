@@ -15,7 +15,6 @@ int main(void)
     FILE* file_read = nullptr;
     file_read = file_read_open(file_read, "default_assembler_code.asm");
 
-    //assert(file_read);
     if(!res_checker((ssize_t)file_read))
         return 0;
 
@@ -31,21 +30,45 @@ int main(void)
     if(!res_checker((ssize_t)buffer))
         return 0;
 
-    size_t c_words_num = command_words_num(buffer, file_size + 1);
 
     FILE* file_write = nullptr;
     file_write = file_write_open(file_write, "machine_code.asm");
 
-    //assert(file_write);
     if(!res_checker((ssize_t)file_write))
         return 0;
 
 
-    Lable lables_array[lable_num] = {};
+    FILE* dumpik = nullptr;
+    dumpik = file_write_open(dumpik, "dump_file.txt");
 
-         // TODO remove buffer
-    translator(buffer, c_words_num, file_write, file_size, lables_array);
+    if(!res_checker((ssize_t)dumpik))
+        return 0;
 
+    Label labels_array[label_num] = {};
+
+    int ctor_labels_arr_result = ctor_labels(labels_array, label_num);
+
+    if(!res_checker(ctor_labels_arr_result))
+        return 0;
+
+    Dynamic_Token token = {};
+    ctor_dyn_token(&token);
+
+    fprintf(stderr, "press 'c' to continue\n");
+
+    token_dump(&token, stderr);
+
+    init_token_st(buffer, file_size, &token);
+
+    translator(&token, file_write, labels_array, label_num, FIRST_RUN);
+
+    label_dump(labels_array, label_num, dumpik);
+    token_dump(&token, dumpik);
+
+    translator(&token, file_write, labels_array, label_num, SECOND_RUN);
+
+    label_dump(labels_array, label_num, dumpik);
+    token_dump(&token, dumpik);
 
     int f_read_res = file_close(file_read);
 
@@ -57,8 +80,16 @@ int main(void)
     if(!res_checker(f_write_cl))
         return 0;
 
+    int f_dump_cl = file_close(dumpik);
+
+    if(!res_checker(f_dump_cl))
+        return 0;
+
     free(buffer);
     buffer = nullptr;
+
+    free(token.token_array);
+    token.token_array = nullptr;
 
     return 0;
 }
