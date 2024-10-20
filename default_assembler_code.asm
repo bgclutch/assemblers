@@ -1,14 +1,14 @@
 push 1
 add
 mul
+NEXT:
 cos
 in
-NEXT:
 sin
+je NEXT
 dump
 out
 push 14
-je NEXT
 dump
 dump
 hlt

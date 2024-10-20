@@ -145,7 +145,7 @@ int init_token_st(const char* buffer, size_t file_size, Dynamic_Token* token_st)
             case(OPCODE):
             {
                 token_st->token_array[token_st->size].opcode = translation_func(token_st->token_array[token_st->size].name,
-                                                                          token_st->token_array[token_st->size].name_size);
+                                                                                token_st->token_array[token_st->size].name_size);
                 token_st->token_array[token_st->size].token_size = sizeof(char);
                 token_st->size++;
                 break;
@@ -275,15 +275,25 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
             if(token_st->token_array[ind].type == LABEL) // if token type == label
             {
                 for(size_t pos = 0; pos < labels_arr_len; pos++) // iteration by labels array
-                {
-                    if(strncmp((const char*)labels_array[pos].name, basic_name, b_name_len) == 0 && flag == 1) // find first accessible unit
-                    { // copy name to labels array
+                { // FIXME pizdec peregruz chto delat'
+                    if(strncmp((const char*)labels_array[pos].name, basic_name, b_name_len) == 0 && flag == 1 ) // find first free spot
+                    {   // copy name to labels array
+                        memset(labels_array[pos].name, '\0', sizeof(labels_array[pos].name));
                         strncpy(labels_array[pos].name, token_st->token_array[ind].name, token_st->token_array[ind].name_size);
                         if(token_st->token_array[ind].name[token_st->token_array[ind].name_size - 1] == lblatr)
                         {
                             labels_array[pos].ip = (int64_t)instr_pointer; // else address is -1 (it will be checked in second run)
+                            token_st->token_array[ind].label_address = (int64_t)instr_pointer;
                         }
                         flag = 0;
+                    }
+                    else if(token_st->token_array[ind].name[token_st->token_array[ind].name_size - 1] == lblatr)  // if this pointer already declaired
+                    {
+                        if(strncmp(labels_array[pos].name, token_st->token_array[ind].name, token_st->token_array[ind].name_size - 2) == 0)
+                        {
+                            labels_array[pos].ip = (int64_t)++instr_pointer;
+                            token_st->token_array[ind].label_address = (int64_t)++instr_pointer;
+                        }
                     }
                 }
             }
