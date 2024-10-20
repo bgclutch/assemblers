@@ -287,15 +287,22 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                             token_st->token_array[ind].label_address = (int64_t)instr_pointer;
                             instr_pointer += token_st->token_array[ind].token_size;
                         }
+                        else
+                        {
+                            instr_pointer += sizeof(char);
+                            label_to_null(labels_array, pos);
+                        }
                         flag = 0;
                     }
                     else if(token_st->token_array[ind].name[token_st->token_array[ind].name_size - 1] == lblatr)  // if this pointer already declaired
                     {
                         if(strncmp(labels_array[pos].name, token_st->token_array[ind].name, token_st->token_array[ind].name_size - 2) == 0)
                         {
+                            strncpy(labels_array[pos].name, token_st->token_array[ind].name, token_st->token_array[ind].name_size);
                             instr_pointer += token_st->token_array[ind].token_size;
-                            labels_array[pos].ip = (int64_t)instr_pointer;
                             token_st->token_array[ind].label_address = (int64_t)instr_pointer;
+                            label_to_null(labels_array, pos);
+
                         }
                     }
                 }
@@ -476,4 +483,12 @@ void token_ctor(Token* token)
     token->label_address = label_ip_null;
     token->number = -1;
 
+}
+
+
+int label_to_null(Label* labels_array, size_t index)
+{
+    strncpy(labels_array[index].name, basic_name, b_name_len);
+    labels_array[index].ip = label_ip_null;
+    return 1;
 }

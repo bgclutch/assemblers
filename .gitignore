@@ -1,1 +1,4 @@
-/machine_code.asm
+machine_code.asm
+*.o
+*.txt
+.vscode

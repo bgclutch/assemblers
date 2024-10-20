@@ -158,6 +158,8 @@ void token_dump(Dynamic_Token* token, FILE* file);
 
 void token_ctor(Token* token);
 
+int label_to_null(Label* labels_array, size_t index);
+
 
 
 

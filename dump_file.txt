@@ -1,7 +1,7 @@
 array struct elem 0: NEXT: jump address:11
-array struct elem 1: NEXT jump address:-1
-array struct elem 2: START jump address:22
-array struct elem 3: START: jump address:22
+array struct elem 1: START: jump address:22
+array struct elem 2: aboba jump address:-1
+array struct elem 3: aboba jump address:-1
 array struct elem 4: aboba jump address:-1
 array struct elem 5: aboba jump address:-1
 array struct elem 6: aboba jump address:-1
@@ -211,9 +211,9 @@ number -1
 
 
 array struct elem 0: NEXT: jump address:11
-array struct elem 1: NEXT jump address:-1
-array struct elem 2: START jump address:22
-array struct elem 3: START: jump address:22
+array struct elem 1: START: jump address:22
+array struct elem 2: aboba jump address:-1
+array struct elem 3: aboba jump address:-1
 array struct elem 4: aboba jump address:-1
 array struct elem 5: aboba jump address:-1
 array struct elem 6: aboba jump address:-1
