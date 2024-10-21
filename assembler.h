@@ -2,32 +2,39 @@
 #define ASSEMBLER_H_
 
 
-static const char* c_push = "push";
-static const char* c_add  = "add";
-static const char* c_sub  = "sub";
-static const char* c_mul  = "mul";
-static const char* c_div  = "div";
-static const char* c_in   = "in";
-static const char* c_out  = "out";
-static const char* c_sqrt = "sqrt";
-static const char* c_sin  = "sin";
-static const char* c_cos  = "cos";
-static const char* c_dump = "dump";
-static const char* c_hlt  = "hlt";
-static const char* c_pshr = "pushr";
-static const char* c_pop  = "pop";
-static const char* c_jmp  = "jmp";
-static const char* c_ja   = "ja";
-static const char* c_jae  = "jae";
-static const char* c_jb   = "jb";
-static const char* c_jbe  = "jbe";
-static const char* c_je   = "je";
-static const char* c_jne  = "jne";
-static const char* c_ax   = "AX";
-static const char* c_bx   = "BX";
-static const char* c_cx   = "CX";
-static const char* c_dx   = "DX";
-static const char lblatr  = ':';
+static const char* c_push  = "push";
+static const char* c_add   = "add";
+static const char* c_sub   = "sub";
+static const char* c_mul   = "mul";
+static const char* c_div   = "div";
+static const char* c_in    = "in";
+static const char* c_out   = "out";
+static const char* c_sqrt  = "sqrt";
+static const char* c_sin   = "sin";
+static const char* c_cos   = "cos";
+static const char* c_dump  = "dump";
+static const char* c_hlt   = "hlt";
+static const char* c_pop   = "pop";
+static const char* c_jmp   = "jmp";
+static const char* c_ja    = "ja";
+static const char* c_jae   = "jae";
+static const char* c_jb    = "jb";
+static const char* c_jbe   = "jbe";
+static const char* c_je    = "je";
+static const char* c_jne   = "jne";
+static const char* c_ax    = "AX";
+static const char* c_bx    = "BX";
+static const char* c_cx    = "CX";
+static const char* c_dx    = "DX";
+
+static const char lblatr   = ':';
+static const char ramatrb  = '[';
+static const char ramatre  = ']';
+
+static const char add_op = '+';
+static const char sub_op = '-';
+static const char mul_op = '*';
+static const char div_op = '/';
 
 static const char* basic_name = "aboba";
 static const size_t b_name_len = sizeof(basic_name);
@@ -39,9 +46,10 @@ static const size_t token_alloc_coef = 8;
 
 #include "../stack_ded/stack_headers/stack.h"
 
+
 enum Asm_Commands
 {
-    MY_PUSH = 0x01, // TODO caps or c_ prefix
+    MY_PUSH = 0x01,
     MY_ADD  = 0x02,
     MY_SUB  = 0x03,
     MY_MUL  = 0x04,
@@ -59,8 +67,7 @@ enum Asm_Commands
     MY_JBE  = 0x14,
     MY_JE   = 0x15,
     MY_JNE  = 0x16,
-    MY_PSHR = 0x20,
-    MY_POP  = 0x21,
+    MY_POP  = 0x20,
     MATVEY  = 0x6F,
     MY_HLT  = 0xEF,
 };
@@ -88,6 +95,8 @@ enum Token_Type
     NUMBER    = 0x02,
     LABEL     = 0x03,
     REGISTER  = 0x04,
+    PFLAG     = 0x05,
+    ARITHM    = 0x06,
     ERROR     = 0xFF,
 };
 
@@ -98,16 +107,34 @@ enum Run_Flags
     SECOND_RUN = 0x53,
 };
 
+
+static const int number_bit   = 0x01;
+static const int register_bit = 0x02;
+static const int RAM_bit     = 0x04;
+
+
+enum Arithm_Op
+{
+    SUMM    = 0x08,
+    SUBDIV  = 0x10,
+    MULTIPL = 0x20,
+    DIVSION = 0x40,
+    DEFAULT = 0xFF,
+};
+
+
 struct Token
 {
-    char name[25];
-    size_t name_size;
-    size_t token_size;
-    Token_Type type;
-    Asm_Commands opcode;
-    Registers register_num;
-    ssize_t label_address;
-    StackElem_t number;
+    char name[25];           // uses always
+    size_t name_size;        // uses always
+    size_t token_size;       // uses always
+    Token_Type type;         // uses always
+    Asm_Commands opcode;     // used if opcode
+    Registers register_num;  // used if register
+    ssize_t label_address;   // used if label
+    StackElem_t number;      // used if number
+    Arithm_Op operation;     // used if push or pop before
+
 };
 
 
@@ -124,6 +151,8 @@ struct Label
     char name[25];
     int64_t ip;
 };
+
+
 
 
 Token_Type get_token_type(char name[25], size_t name_size);
@@ -150,51 +179,27 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
 
 int ctor_labels(Label* labels_array, size_t size);
 
-int dtor_labels(Label* labels_array, size_t size);
-
 void label_dump(Label* labels_array, size_t labels_num, FILE* file);
 
 void token_dump(Dynamic_Token* token, FILE* file);
 
-void token_ctor(Token* token);
+int token_ctor(Token* token);
 
 int label_to_null(Label* labels_array, size_t index);
 
-
-
-
-
-size_t command_words_num(char* buffer, size_t size);
-
-size_t strings_num(const char* buffer, size_t size);
+size_t command_words_num(char* buffer, size_t size); // FIXME USELESS
 
 Asm_Commands translation_func(const char*, size_t);
 
-char* find_command_word_begin(char* start_address, size_t index, const size_t size);
-
-size_t find_command_word_len(char* start_address, size_t index, const size_t size);
-
-size_t find_string_len(char* start_address, size_t index, const size_t size);
-
-Asm_Commands put_opcode_word(char* buffer, size_t size, size_t* index);
-
-ssize_t put_command_num(char* buffer, size_t size, size_t* index);
-
 Registers choose_register(const char* command_word, size_t wrd_size);
-
-Registers put_register(char* buffer, size_t size, size_t* index);
-
-int synt_err_check(const Asm_Commands command_num, const char* file, size_t line);
 
 int word_toupper_comparer(const char* str_1, const char* str_2, size_t len_1);
 
-ssize_t find_label(char* string, size_t string_len);
+Arithm_Op choose_arithm_operation(char name[25]);
 
-int get_label(char* lable_start, size_t lable_len, Label* labels_array, size_t lables_arr_len, size_t instruction_pointer);
+int arithm_operand_cmp(char name[25]);
 
-ssize_t put_label(char* buffer, size_t size, size_t* index, Label *labels_array, size_t lables_arr_len, size_t counter);
-
-size_t lable_len(char* start_address, size_t index, size_t size);
+int push_pop_atr_cmp(char name[25]);
 
 
 #endif // ASSEMBLER_H_

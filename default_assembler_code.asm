@@ -1,16 +1,19 @@
-push 1
+push 21
+push AX
+push 1 + AX
+push [ 1 + AX ]
 add
 mul
-START:
 cos
+ja NEXT
 in
 jne START
 sin
 dump
-ja NEXT
+START:
 out
-NEXT:
 push 14
+NEXT:
 dump
 dump
 hlt

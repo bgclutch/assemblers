@@ -6,6 +6,7 @@
 #include <assert.h>
 
 #include "assembler.h"
+#include "putargs.h"
 #include "../lib_buffer_proc/buffer.h"
 #include "../lib_file_proc/file.h"
 
@@ -37,7 +38,6 @@ Asm_Commands translation_func(const char* command_word, size_t wrd_size)
     else if(strncmp(command_word, c_cos,  wrd_size) == 0) return MY_COS;
     else if(strncmp(command_word, c_dump, wrd_size) == 0) return MY_DUMP;
     else if(strncmp(command_word, c_hlt,  wrd_size) == 0) return MY_HLT;
-    else if(strncmp(command_word, c_pshr, wrd_size) == 0) return MY_PSHR;
     else if(strncmp(command_word, c_pop,  wrd_size) == 0) return MY_POP;
     else if(strncmp(command_word, c_jmp,  wrd_size) == 0) return MY_JMP;
     else if(strncmp(command_word, c_ja,   wrd_size) == 0) return MY_JA;
@@ -60,6 +60,8 @@ Registers choose_register(const char* command_word, size_t wrd_size)
 Token_Type get_token_type(char name[25], size_t name_size) // FIXME check label addresses
 {
          if(opcode_cmp(  name, name_size)) return OPCODE;
+    else if(arithm_operand_cmp(name))      return ARITHM;
+    else if(push_pop_atr_cmp( name))       return PFLAG;
     else if(number_cmp(  name, name_size)) return NUMBER;
     else if(register_cmp(name, name_size)) return REGISTER;
     else return LABEL;
@@ -80,7 +82,6 @@ int opcode_cmp(char name[25], size_t name_size)
     else if(strncmp(name, c_cos,  name_size) == 0) return 1;
     else if(strncmp(name, c_dump, name_size) == 0) return 1;
     else if(strncmp(name, c_hlt,  name_size) == 0) return 1;
-    else if(strncmp(name, c_pshr, name_size) == 0) return 1;
     else if(strncmp(name, c_pop,  name_size) == 0) return 1;
     else if(strncmp(name, c_jmp,  name_size) == 0) return 1;
     else if(strncmp(name, c_ja,   name_size) == 0) return 1;
@@ -114,6 +115,31 @@ int register_cmp(char name[25], size_t name_size)
     else return 0;
 }
 
+
+Arithm_Op choose_arithm_operation(char name[25])
+{
+         if(name[0] == add_op) return SUMM;
+    else if(name[0] == sub_op) return SUBDIV;
+    else if(name[0] == mul_op) return MULTIPL;
+    else if(name[0] == div_op) return DIVSION;
+    else return DEFAULT;
+}
+
+int arithm_operand_cmp(char name[25])
+{
+         if(name[0] == add_op) return 1;
+    else if(name[0] == sub_op) return 1;
+    else if(name[0] == mul_op) return 1;
+    else if(name[0] == div_op) return 1;
+    else return 0;
+}
+
+int push_pop_atr_cmp(char name[25])
+{
+         if(name[0] == ramatrb) return 1;
+    else if(name[0] == ramatre) return 1;
+    else return 0;
+}
 
 int init_token_st(const char* buffer, size_t file_size, Dynamic_Token* token_st)
 {
@@ -169,6 +195,15 @@ int init_token_st(const char* buffer, size_t file_size, Dynamic_Token* token_st)
                                                                                token_st->token_array[token_st->size].name_size);
                 token_st->token_array[token_st->size].token_size = sizeof(char);
                 token_st->size++;
+                break;
+            }
+            case(PFLAG):
+            {
+                break;
+            }
+            case(ARITHM):
+            {
+                token_st->token_array[token_st->size].operation = choose_arithm_operation(token_st->token_array[token_st->size].name);
                 break;
             }
             case(ERROR):
@@ -276,7 +311,7 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
             if(token_st->token_array[ind].type == LABEL) // if token type == label
             {
                 for(size_t pos = 0; pos < labels_arr_len; pos++) // iteration by labels array
-                { // FIXME pizdec peregruz chto delat'
+                { // FIXME pizdec peregruz chto delat' (maybe func)
                     if(strncmp((const char*)labels_array[pos].name, basic_name, b_name_len) == 0 && flag == 1 ) // find first free spot
                     {   // copy name to labels array
                         memset(labels_array[pos].name, '\0', sizeof(labels_array[pos].name));
@@ -322,6 +357,22 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                 case(OPCODE):
                 {
                     fwrite(&token_st->token_array[ind].opcode, 1, 1, file);
+
+                    if(strncmp(token_st->token_array[ind].name, c_push, token_st->token_array[ind].name_size) == 0)
+                    {
+                        char push_arg = putarg_push(token_st, ind);
+                        assert(push_arg && "zalupa 2 prohod in push arg");
+                        fwrite(&push_arg, 1, sizeof(char), file);
+                    }
+                    if(strncmp(token_st->token_array[ind].name, c_pop, token_st->token_array[ind].name_size) == 0)
+                    {
+                        char pop_arg = putarg_pop(token_st, ind);
+                        assert(pop_arg && "zalupa 2 prohod in pop arg");
+                        fwrite(&pop_arg, 1, sizeof(char), file);
+                    }
+
+                    ind++;
+
                     break;
                 }
                 case(REGISTER):
@@ -361,6 +412,14 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                     }
                     break;
                 }
+                case(PFLAG):
+                {
+                    break;
+                }
+                case(ARITHM):
+                {
+                    break;
+                }
                 case(ERROR):
                 {
                     assert(0 && "penis + penis");
@@ -385,17 +444,6 @@ int ctor_labels(Label* labels_array, size_t size)
     for(size_t index = 0; index < size; index++)
     {
         strncpy(labels_array[index].name, basic_name, b_name_len);
-        labels_array[index].ip = label_ip_null;
-    }
-    return 1;
-}
-
-
-int dtor_labels(Label* labels_array, size_t size)
-{
-    for(size_t index = 0; index < size; index++)
-    {
-        *labels_array[index].name = '0';
         labels_array[index].ip = label_ip_null;
     }
     return 1;
@@ -442,14 +490,15 @@ void token_dump(Dynamic_Token* token, FILE* file)
 {
     for(size_t i = 0; i < token->size; i++)
     {
-        fprintf(file, "%s\n"
+        fprintf(file,   "name: %s\n"
                         "name size %lu\n"
                         "token_size %lu\n"
                         "type %d\n"
                         "opcode %d\n"
                         "register %d\n"
                         "label address %ld\n"
-                        "number %ld\n",
+                        "number %ld\n"
+                        "arithmetic operation %d\n",
                         token->token_array[i].name,
                         token->token_array[i].name_size,
                         token->token_array[i].token_size,
@@ -457,7 +506,8 @@ void token_dump(Dynamic_Token* token, FILE* file)
                         token->token_array[i].opcode,
                         token->token_array[i].register_num,
                         token->token_array[i].label_address,
-                        token->token_array[i].number);
+                        token->token_array[i].number,
+                        token->token_array[i].operation);
         fprintf(file, "\n\n");
     }
 
@@ -471,7 +521,7 @@ void token_dump(Dynamic_Token* token, FILE* file)
 }
 
 
-void token_ctor(Token* token)
+int token_ctor(Token* token)
 {
     strncpy(token->name, basic_name, b_name_len);
     token->name_size = b_name_len;
@@ -481,7 +531,9 @@ void token_ctor(Token* token)
     token->register_num = REGERR;
     token->label_address = label_ip_null;
     token->number = -1;
+    token->operation = DEFAULT;
 
+    return 1;
 }
 
 
