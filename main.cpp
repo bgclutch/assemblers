@@ -54,21 +54,11 @@ int main(void)
     Dynamic_Token token = {};
     ctor_dyn_token(&token);
 
-    fprintf(stderr, "press 'c' to continue\n");
-
-    token_dump(&token, stderr);
-
     init_token_st(buffer, file_size, &token);
 
     translator(&token, file_write, labels_array, label_num, FIRST_RUN);
 
-    label_dump(labels_array, label_num, dumpik);
-    token_dump(&token, dumpik);
-
     translator(&token, file_write, labels_array, label_num, SECOND_RUN);
-
-    label_dump(labels_array, label_num, dumpik);
-    token_dump(&token, dumpik);
 
     int f_read_res = file_close(file_read);
 

@@ -149,7 +149,7 @@ int init_token_st(const char* buffer, size_t file_size, Dynamic_Token* token_st)
 
     while(all_bytes < (ssize_t)file_size)
     {
-        fprintf(stderr, "token array size " BLUE_TEXT("%lu\n"), token_st->size);
+        //fprintf(stderr, "token array size " BLUE_TEXT("%lu\n"), token_st->size);
 
         token_st->token_array[token_st->size].name_size = (size_t)sscanf(buffer + all_bytes, "%s%n",
                                                                          token_st->token_array[token_st->size].name,
@@ -157,13 +157,13 @@ int init_token_st(const char* buffer, size_t file_size, Dynamic_Token* token_st)
 
         token_st->token_array[token_st->size].name_size = strlen(token_st->token_array[token_st->size].name);
 
-        fprintf(stderr, "name " GREEN_TEXT("%s\n")"name size " BLUE_TEXT("%lu\n"), token_st->token_array[token_st->size].name,
-                                                                                   token_st->token_array[token_st->size].name_size);
+        //fprintf(stderr, "name " GREEN_TEXT("%s\n")"name size " BLUE_TEXT("%lu\n"), token_st->token_array[token_st->size].name,
+                                                                                   //token_st->token_array[token_st->size].name_size);
 
 
         all_bytes += cur_bytes;
 
-        fprintf(stderr, "all bytes " BLUE_TEXT("%d\n") "file size " BLUE_TEXT("%lu\n\n"), all_bytes, file_size);
+        //fprintf(stderr, "all bytes " BLUE_TEXT("%d\n") "file size " BLUE_TEXT("%lu\n\n"), all_bytes, file_size);
 
         token_st->token_array[token_st->size].type = get_token_type(token_st->token_array[token_st->size].name,
                                                               token_st->token_array[token_st->size].name_size);
@@ -268,7 +268,7 @@ int realloc_maker_token(Dynamic_Token* token_st, size_t new_capacity)
         return 0;
     }
 
-    fprintf(stderr, "capacity old (realloc) %lu\n" ,token_st->capacity);
+    //fprintf(stderr, "capacity old (realloc) %lu\n" ,token_st->capacity);
 
     token_st->capacity    = new_capacity;
     token_st->token_array = new_array;
@@ -278,7 +278,7 @@ int realloc_maker_token(Dynamic_Token* token_st, size_t new_capacity)
         token_ctor(&token_st->token_array[i]);
     }
 
-    fprintf(stderr, "capacity (realloc) %lu\n\n" ,token_st->capacity);
+    // fprintf(stderr, "capacity (realloc) %lu\n\n" ,token_st->capacity);
 
     return 1;
 
@@ -407,7 +407,7 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                                 continue;
                             }
 
-                            label_dump(labels_array, labels_arr_len, stderr);
+                            //label_dump(labels_array, labels_arr_len, stderr);
 
                             if(labels_array[i].ip == label_ip_null)
                             {
