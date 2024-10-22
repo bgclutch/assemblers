@@ -1,5 +1,5 @@
-array struct elem 0: START: jump address:43
-array struct elem 1: NEXT: jump address:53
+array struct elem 0: aboba jump address:-1
+array struct elem 1: aboba jump address:-1
 array struct elem 2: aboba jump address:-1
 array struct elem 3: aboba jump address:-1
 array struct elem 4: aboba jump address:-1
@@ -21,34 +21,56 @@ number -1
 arithmetic operation 255
 
 
-name: 21
+name: [
+name size 1
+token_size 1
+type 5
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: 13
 name size 2
 token_size 8
 type 2
 opcode 111
 register 223
 label address -1
-number 21
+number 13
 arithmetic operation 255
 
 
-name: push
-name size 4
+name: *
+name size 1
 token_size 1
-type 1
-opcode 1
+type 6
+opcode 111
 register 223
 label address -1
 number -1
-arithmetic operation 255
+arithmetic operation 32
 
 
-name: AX
+name: dx
 name size 2
 token_size 1
 type 4
 opcode 111
-register 0
+register 3
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: ]
+name size 1
+token_size 1
+type 5
+opcode 111
+register 223
 label address -1
 number -1
 arithmetic operation 255
@@ -65,26 +87,37 @@ number -1
 arithmetic operation 255
 
 
-name: 1
+name: bx
+name size 2
+token_size 1
+type 4
+opcode 111
+register 1
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: -
+name size 1
+token_size 1
+type 6
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 16
+
+
+name: 3
 name size 1
 token_size 8
 type 2
 opcode 111
 register 223
 label address -1
-number 1
+number 3
 arithmetic operation 255
-
-
-name: AX
-name size 2
-token_size 1
-type 4
-opcode 111
-register 0
-label address -1
-number -1
-arithmetic operation 8
 
 
 name: push
@@ -98,18 +131,62 @@ number -1
 arithmetic operation 255
 
 
-name: 1
+name: 12
+name size 2
+token_size 8
+type 2
+opcode 111
+register 223
+label address -1
+number 12
+arithmetic operation 255
+
+
+name: pop
+name size 3
+token_size 1
+type 1
+opcode 32
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: [
+name size 1
+token_size 1
+type 5
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: 5
 name size 1
 token_size 8
 type 2
 opcode 111
 register 223
 label address -1
-number 1
+number 5
 arithmetic operation 255
 
 
-name: AX
+name: +
+name size 1
+token_size 1
+type 6
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 8
+
+
+name: ax
 name size 2
 token_size 1
 type 4
@@ -117,190 +194,14 @@ opcode 111
 register 0
 label address -1
 number -1
-arithmetic operation 8
-
-
-name: add
-name size 3
-token_size 1
-type 1
-opcode 2
-register 223
-label address -1
-number -1
 arithmetic operation 255
 
 
-name: mul
-name size 3
+name: ]
+name size 1
 token_size 1
-type 1
-opcode 4
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: cos
-name size 3
-token_size 1
-type 1
-opcode 10
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: ja
-name size 2
-token_size 1
-type 1
-opcode 17
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: NEXT
-name size 4
-token_size 2
-type 3
+type 5
 opcode 111
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: in
-name size 2
-token_size 1
-type 1
-opcode 6
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: jne
-name size 3
-token_size 1
-type 1
-opcode 22
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: START
-name size 5
-token_size 2
-type 3
-opcode 111
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: sin
-name size 3
-token_size 1
-type 1
-opcode 9
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: dump
-name size 4
-token_size 1
-type 1
-opcode 11
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: START:
-name size 6
-token_size 2
-type 3
-opcode 111
-register 223
-label address 43
-number -1
-arithmetic operation 255
-
-
-name: out
-name size 3
-token_size 1
-type 1
-opcode 7
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: push
-name size 4
-token_size 1
-type 1
-opcode 1
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: 14
-name size 2
-token_size 8
-type 2
-opcode 111
-register 223
-label address -1
-number 14
-arithmetic operation 255
-
-
-name: NEXT:
-name size 5
-token_size 2
-type 3
-opcode 111
-register 223
-label address 53
-number -1
-arithmetic operation 255
-
-
-name: dump
-name size 4
-token_size 1
-type 1
-opcode 11
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: dump
-name size 4
-token_size 1
-type 1
-opcode 11
 register 223
 label address -1
 number -1
@@ -318,8 +219,8 @@ number -1
 arithmetic operation 255
 
 
-array struct elem 0: START: jump address:43
-array struct elem 1: NEXT: jump address:53
+array struct elem 0: aboba jump address:-1
+array struct elem 1: aboba jump address:-1
 array struct elem 2: aboba jump address:-1
 array struct elem 3: aboba jump address:-1
 array struct elem 4: aboba jump address:-1
@@ -341,14 +242,58 @@ number -1
 arithmetic operation 255
 
 
-name: 21
+name: [
+name size 1
+token_size 1
+type 5
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: dx
+name size 2
+token_size 1
+type 4
+opcode 111
+register 3
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: *
+name size 1
+token_size 1
+type 6
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 32
+
+
+name: 13
 name size 2
 token_size 8
 type 2
 opcode 111
 register 223
 label address -1
-number 21
+number 13
+arithmetic operation 255
+
+
+name: ]
+name size 1
+token_size 1
+type 5
+opcode 111
+register 223
+label address -1
+number -1
 arithmetic operation 255
 
 
@@ -363,48 +308,37 @@ number -1
 arithmetic operation 255
 
 
-name: AX
+name: bx
 name size 2
 token_size 1
 type 4
 opcode 111
-register 0
+register 1
 label address -1
 number -1
 arithmetic operation 255
 
 
-name: push
-name size 4
+name: -
+name size 1
 token_size 1
-type 1
-opcode 1
+type 6
+opcode 111
 register 223
 label address -1
 number -1
-arithmetic operation 255
+arithmetic operation 16
 
 
-name: 1
+name: 3
 name size 1
 token_size 8
 type 2
 opcode 111
 register 223
 label address -1
-number 1
+number 3
 arithmetic operation 255
-
-
-name: AX
-name size 2
-token_size 1
-type 4
-opcode 111
-register 0
-label address -1
-number -1
-arithmetic operation 8
 
 
 name: push
@@ -418,209 +352,77 @@ number -1
 arithmetic operation 255
 
 
-name: 1
+name: 12
+name size 2
+token_size 8
+type 2
+opcode 111
+register 223
+label address -1
+number 12
+arithmetic operation 255
+
+
+name: pop
+name size 3
+token_size 1
+type 1
+opcode 32
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: [
+name size 1
+token_size 1
+type 5
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: ax
+name size 2
+token_size 1
+type 4
+opcode 111
+register 0
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: +
+name size 1
+token_size 1
+type 6
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 8
+
+
+name: 5
 name size 1
 token_size 8
 type 2
 opcode 111
 register 223
 label address -1
-number 1
+number 5
 arithmetic operation 255
 
 
-name: AX
-name size 2
+name: ]
+name size 1
 token_size 1
-type 4
+type 5
 opcode 111
-register 0
-label address -1
-number -1
-arithmetic operation 8
-
-
-name: add
-name size 3
-token_size 1
-type 1
-opcode 2
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: mul
-name size 3
-token_size 1
-type 1
-opcode 4
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: cos
-name size 3
-token_size 1
-type 1
-opcode 10
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: ja
-name size 2
-token_size 1
-type 1
-opcode 17
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: NEXT
-name size 4
-token_size 2
-type 3
-opcode 111
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: in
-name size 2
-token_size 1
-type 1
-opcode 6
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: jne
-name size 3
-token_size 1
-type 1
-opcode 22
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: START
-name size 5
-token_size 2
-type 3
-opcode 111
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: sin
-name size 3
-token_size 1
-type 1
-opcode 9
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: dump
-name size 4
-token_size 1
-type 1
-opcode 11
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: START:
-name size 6
-token_size 2
-type 3
-opcode 111
-register 223
-label address 43
-number -1
-arithmetic operation 255
-
-
-name: out
-name size 3
-token_size 1
-type 1
-opcode 7
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: push
-name size 4
-token_size 1
-type 1
-opcode 1
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: 14
-name size 2
-token_size 8
-type 2
-opcode 111
-register 223
-label address -1
-number 14
-arithmetic operation 255
-
-
-name: NEXT:
-name size 5
-token_size 2
-type 3
-opcode 111
-register 223
-label address 53
-number -1
-arithmetic operation 255
-
-
-name: dump
-name size 4
-token_size 1
-type 1
-opcode 11
-register 223
-label address -1
-number -1
-arithmetic operation 255
-
-
-name: dump
-name size 4
-token_size 1
-type 1
-opcode 11
 register 223
 label address -1
 number -1

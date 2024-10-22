@@ -26,7 +26,7 @@ char putarg_push(Dynamic_Token* token, size_t ind)
                 assert(0); // FIXME CHANGE KAKASHECHKU?
             }
 
-            push_dest_byte |= RAM_bit;
+            push_dest_byte |= push_dest_byte | RAM_bit;
 
             ind++; //second incr
 
@@ -70,6 +70,8 @@ char putarg_push(Dynamic_Token* token, size_t ind)
                     }
 
                     push_dest_byte |= register_bit;
+
+                    swap_tokens(&token->token_array[ind], &token->token_array[ind - 2]);
                 }
             }
 
@@ -121,6 +123,8 @@ char putarg_push(Dynamic_Token* token, size_t ind)
                 }
 
                 push_dest_byte |= register_bit;
+
+                swap_tokens(&token->token_array[ind], &token->token_array[ind - 2]);
             }
 
             return push_dest_byte;
@@ -167,17 +171,19 @@ char putarg_pop(Dynamic_Token* token, size_t ind)
                 assert(0); // FIXME CHANGE KAKASHECHKU?
             }
 
-            pop_dest_byte |= RAM_bit;
+            pop_dest_byte |= pop_dest_byte | RAM_bit;
 
             ind++;
 
             if(token->token_array[ind].type == NUMBER)
             {
-                pop_dest_byte |= number_bit;
+                pop_dest_byte |= pop_dest_byte | number_bit;
+
+                ind++;
 
                 if(token->token_array[ind].type == ARITHM)
                 {
-                    pop_dest_byte |= (char)token->token_array[ind].operation;
+                    pop_dest_byte |= pop_dest_byte | (char)token->token_array[ind].operation;
 
                     ind++;
 
@@ -187,12 +193,16 @@ char putarg_pop(Dynamic_Token* token, size_t ind)
                         assert(0 && "peredelyvay\n");
                     }
 
-                    pop_dest_byte |= register_bit;
+                    pop_dest_byte |= pop_dest_byte | register_bit;
+
+                    swap_tokens(&token->token_array[ind], &token->token_array[ind - 2]);
                 }
             }
             else if(token->token_array[ind].type == REGISTER)
             {
-                pop_dest_byte |= register_bit;
+                pop_dest_byte |= pop_dest_byte | register_bit;
+
+                ind++;
 
                 if(token->token_array[ind].type != ARITHM)
                 {
@@ -200,7 +210,9 @@ char putarg_pop(Dynamic_Token* token, size_t ind)
                     assert(0 && "pososi moy huy\n");
                 }
 
-                pop_dest_byte |= (char)token->token_array[ind].operation;
+                pop_dest_byte |= pop_dest_byte | (char)token->token_array[ind].operation;
+
+                ind++;
 
                 if(token->token_array[ind].type != NUMBER)
                 {
@@ -208,7 +220,7 @@ char putarg_pop(Dynamic_Token* token, size_t ind)
                     assert(0);
                 }
 
-                pop_dest_byte |= number_bit;
+                pop_dest_byte |= pop_dest_byte | number_bit;
             }
 
             return pop_dest_byte;
@@ -246,4 +258,16 @@ char putarg_pop(Dynamic_Token* token, size_t ind)
             assert(0 && "da ty zaebal pisat huynu\n");
         }
     }
+}
+
+
+int swap_tokens(Token* token_1, Token* token_2)
+{
+    Token temp = {};
+
+    temp = *token_2;
+    *token_2 = *token_1;
+    *token_1 = temp;
+
+    return 1;
 }

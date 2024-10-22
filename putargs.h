@@ -9,5 +9,7 @@ char putarg_push(Dynamic_Token* token, size_t ind);
 
 char putarg_pop(Dynamic_Token* token, size_t ind);
 
+int swap_tokens(Token* token_1, Token* token_2);
+
 
 #endif // PUTARGS_H_

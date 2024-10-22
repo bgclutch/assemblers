@@ -108,9 +108,9 @@ enum Run_Flags
 };
 
 
-static const int number_bit   = 0x01;
-static const int register_bit = 0x02;
-static const int RAM_bit     = 0x04;
+static const char number_bit   = 0x01;
+static const char register_bit = 0x02;
+static const char RAM_bit      = 0x04;
 
 
 enum Arithm_Op
