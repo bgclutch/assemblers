@@ -348,6 +348,10 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                     }
                 }
             }
+            else if(token_st->token_array[ind].type == ARITHM)
+            {
+                flag = 1;
+            }
             else
             {
                 instr_pointer += token_st->token_array[ind].token_size;

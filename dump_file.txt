@@ -1,5 +1,5 @@
-array struct elem 0: aboba jump address:-1
-array struct elem 1: aboba jump address:-1
+array struct elem 0: NEXT: jump address:44
+array struct elem 1: START: jump address:46
 array struct elem 2: aboba jump address:-1
 array struct elem 3: aboba jump address:-1
 array struct elem 4: aboba jump address:-1
@@ -32,26 +32,15 @@ number -1
 arithmetic operation 255
 
 
-name: 13
-name size 2
-token_size 8
-type 2
-opcode 111
-register 223
-label address -1
-number 13
-arithmetic operation 255
-
-
-name: *
-name size 1
+name: 13*
+name size 3
 token_size 1
-type 6
+type 4
 opcode 111
-register 223
+register 0
 label address -1
 number -1
-arithmetic operation 32
+arithmetic operation 255
 
 
 name: dx
@@ -117,6 +106,28 @@ opcode 111
 register 223
 label address -1
 number 3
+arithmetic operation 255
+
+
+name: ja
+name size 2
+token_size 1
+type 1
+opcode 17
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: START
+name size 5
+token_size 2
+type 3
+opcode 111
+register 223
+label address -1
+number -1
 arithmetic operation 255
 
 
@@ -204,6 +215,94 @@ type 5
 opcode 111
 register 223
 label address -1
+number -1
+arithmetic operation 255
+
+
+name: jne
+name size 3
+token_size 1
+type 1
+opcode 22
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: NEXT
+name size 4
+token_size 2
+type 3
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: cos
+name size 3
+token_size 1
+type 1
+opcode 10
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: dump
+name size 4
+token_size 1
+type 1
+opcode 11
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: NEXT:
+name size 5
+token_size 2
+type 3
+opcode 111
+register 223
+label address 44
+number -1
+arithmetic operation 255
+
+
+name: dump
+name size 4
+token_size 1
+type 1
+opcode 11
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: dump
+name size 4
+token_size 1
+type 1
+opcode 11
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: START:
+name size 6
+token_size 2
+type 3
+opcode 111
+register 223
+label address 46
 number -1
 arithmetic operation 255
 
@@ -219,8 +318,8 @@ number -1
 arithmetic operation 255
 
 
-array struct elem 0: aboba jump address:-1
-array struct elem 1: aboba jump address:-1
+array struct elem 0: NEXT: jump address:44
+array struct elem 1: START: jump address:46
 array struct elem 2: aboba jump address:-1
 array struct elem 3: aboba jump address:-1
 array struct elem 4: aboba jump address:-1
@@ -253,6 +352,17 @@ number -1
 arithmetic operation 255
 
 
+name: 13*
+name size 3
+token_size 1
+type 4
+opcode 111
+register 0
+label address -1
+number -1
+arithmetic operation 255
+
+
 name: dx
 name size 2
 token_size 1
@@ -261,28 +371,6 @@ opcode 111
 register 3
 label address -1
 number -1
-arithmetic operation 255
-
-
-name: *
-name size 1
-token_size 1
-type 6
-opcode 111
-register 223
-label address -1
-number -1
-arithmetic operation 32
-
-
-name: 13
-name size 2
-token_size 8
-type 2
-opcode 111
-register 223
-label address -1
-number 13
 arithmetic operation 255
 
 
@@ -338,6 +426,28 @@ opcode 111
 register 223
 label address -1
 number 3
+arithmetic operation 255
+
+
+name: ja
+name size 2
+token_size 1
+type 1
+opcode 17
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: START
+name size 5
+token_size 2
+type 3
+opcode 111
+register 223
+label address -1
+number -1
 arithmetic operation 255
 
 
@@ -425,6 +535,94 @@ type 5
 opcode 111
 register 223
 label address -1
+number -1
+arithmetic operation 255
+
+
+name: jne
+name size 3
+token_size 1
+type 1
+opcode 22
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: NEXT
+name size 4
+token_size 2
+type 3
+opcode 111
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: cos
+name size 3
+token_size 1
+type 1
+opcode 10
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: dump
+name size 4
+token_size 1
+type 1
+opcode 11
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: NEXT:
+name size 5
+token_size 2
+type 3
+opcode 111
+register 223
+label address 44
+number -1
+arithmetic operation 255
+
+
+name: dump
+name size 4
+token_size 1
+type 1
+opcode 11
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: dump
+name size 4
+token_size 1
+type 1
+opcode 11
+register 223
+label address -1
+number -1
+arithmetic operation 255
+
+
+name: START:
+name size 6
+token_size 2
+type 3
+opcode 111
+register 223
+label address 46
 number -1
 arithmetic operation 255
 
