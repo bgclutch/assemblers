@@ -1,4 +1,4 @@
-push [ 13* dx ]
+push [ 13 * dx ]
 push bx - 3
 ja START
 push 12

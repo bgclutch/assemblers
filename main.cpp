@@ -56,9 +56,9 @@ int main(void)
 
     init_token_st(buffer, file_size, &token);
 
-    translator(&token, file_write, labels_array, label_num, FIRST_RUN);
+    size_t calloc_proc_len = translator(&token, file_write, labels_array, label_num, FIRST_RUN, basic_ip);
 
-    translator(&token, file_write, labels_array, label_num, SECOND_RUN);
+    translator(&token, file_write, labels_array, label_num, SECOND_RUN, calloc_proc_len);
 
     int f_read_res = file_close(file_read);
 

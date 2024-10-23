@@ -42,6 +42,7 @@ static const size_t b_name_len = sizeof(basic_name);
 static const size_t label_num = 10;
 static const ssize_t label_ip_null = -1;
 static const size_t token_alloc_coef = 8;
+static const size_t basic_ip = 0;
 
 
 #include "../stack_ded/stack_headers/stack.h"
@@ -175,7 +176,7 @@ size_t realloc_if_down_needed_token(Dynamic_Token token_st);
 
 int init_token_st(const char* buffer, size_t file_size, Dynamic_Token* token_st);
 
-int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t lables_arr_len, Run_Flags translator_flag);
+size_t translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t lables_arr_len, Run_Flags translator_flag, size_t ip_get);
 
 int ctor_labels(Label* labels_array, size_t size);
 
@@ -187,7 +188,6 @@ int token_ctor(Token* token);
 
 int label_to_null(Label* labels_array, size_t index);
 
-size_t command_words_num(char* buffer, size_t size); // FIXME USELESS
 
 Asm_Commands translation_func(const char*, size_t);
 

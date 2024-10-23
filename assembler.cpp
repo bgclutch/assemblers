@@ -12,19 +12,6 @@
 #include "../lib_file_proc/file.h"
 
 
-
-size_t command_words_num(char* buffer, size_t size)
-{
-    size_t counter = 0;
-    for(size_t i = 1; i < size; i++)
-    {
-        if(isspace(buffer[i - 1]) && isalnum(buffer[i]))
-            counter++;
-    }
-
-    return counter;
-}
-
 Asm_Commands translation_func(const char* command_word, size_t wrd_size)
 {
          if(strncmp(command_word, c_push, wrd_size) == 0) return MY_PUSH;
@@ -303,11 +290,14 @@ size_t realloc_if_down_needed_token(Dynamic_Token token_st)
 }
 
 
-int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t labels_arr_len, Run_Flags translator_flag)
+size_t translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t labels_arr_len, Run_Flags translator_flag, size_t ip_get)
 {
-    // TODO asserts
+    assert(token_st);
+    assert(token_st->token_array);
+    assert(file);
+    assert(labels_array);
 
-    size_t instr_pointer = 0;
+    size_t instr_pointer = ip_get;
 
     if(translator_flag == FIRST_RUN)
     {
@@ -358,6 +348,9 @@ int translator(Dynamic_Token* token_st, FILE* file, Label* labels_array, size_t 
                 flag = 1;
             }
         }
+        fprintf(stderr, "last instr poiter:"BLUE_TEXT("%lu\n"), instr_pointer);
+        fwrite(&instr_pointer, 1, sizeof(instr_pointer), file);
+        return instr_pointer;
     }
     else if(translator_flag == SECOND_RUN)
     {
